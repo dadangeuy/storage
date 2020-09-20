@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsTemplate
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
+import org.springframework.http.MediaTypeFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -21,21 +22,23 @@ class DownloadController(
     val gridFsTemplate: ReactiveGridFsTemplate
 ) {
 
-    @GetMapping(
-        consumes = [MediaType.ALL_VALUE],
-        produces = [MediaType.APPLICATION_OCTET_STREAM_VALUE]
-    )
+    @GetMapping
     fun download(
         @PathVariable id: String
     ): Mono<ResponseEntity<Flux<DataBuffer>>> {
         val query = Query(Criteria.where("_id").isEqualTo(id))
-        return gridFsTemplate
-            .findOne(query)
-            .flatMap { file -> gridFsTemplate.getResource(file) }
-            .map { resource ->
-                ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "filename=" + resource.filename)
-                    .body(resource.downloadStream)
-            }
+        val mFile = gridFsTemplate.findOne(query)
+        val mResource = mFile.flatMap { file -> gridFsTemplate.getResource(file) }
+
+        return mResource.map { resource ->
+            val mediaType = MediaTypeFactory
+                .getMediaType(resource.filename)
+                .orElse(MediaType.APPLICATION_OCTET_STREAM)
+
+            ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "filename=" + resource.filename)
+                .contentType(mediaType)
+                .body(resource.downloadStream)
+        }
     }
 }
