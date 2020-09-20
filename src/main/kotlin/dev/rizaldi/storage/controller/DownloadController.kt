@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono
 @RestController
 @RequestMapping("files/{id}")
 class DownloadController(
-    val gridFsTemplate: ReactiveGridFsTemplate
+    val gridFs: ReactiveGridFsTemplate
 ) {
 
     @GetMapping
@@ -27,8 +27,8 @@ class DownloadController(
         @PathVariable id: String
     ): Mono<ResponseEntity<Flux<DataBuffer>>> {
         val query = Query(Criteria.where("_id").isEqualTo(id))
-        val mFile = gridFsTemplate.findOne(query)
-        val mResource = mFile.flatMap { file -> gridFsTemplate.getResource(file) }
+        val mFile = gridFs.findOne(query)
+        val mResource = mFile.flatMap { file -> gridFs.getResource(file) }
 
         return mResource.map { resource ->
             val mediaType = MediaTypeFactory
