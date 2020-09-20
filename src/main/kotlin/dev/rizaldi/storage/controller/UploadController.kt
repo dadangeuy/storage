@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("file")
+@RequestMapping("files")
 class UploadController(
     val gridFsTemplate: ReactiveGridFsTemplate
 ) {
