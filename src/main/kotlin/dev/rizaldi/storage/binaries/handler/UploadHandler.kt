@@ -3,7 +3,6 @@ package dev.rizaldi.storage.binaries.handler
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsTemplate
 import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.HandlerFunction
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
@@ -23,10 +22,9 @@ class UploadHandler(
         val mPayload = gridFs
             .store(fFile, name)
             .map { id -> ResponsePayload(id = id.toHexString()) }
-        val body = BodyInserters.fromPublisher(mPayload, ResponsePayload::class.java)
 
         return ServerResponse
             .ok()
-            .body(body)
+            .body(mPayload, ResponsePayload::class.java)
     }
 }
