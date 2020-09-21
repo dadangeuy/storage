@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 @Component
-class ListFileHandler(
+class ListHandler(
     val gridFs: ReactiveGridFsTemplate
 ) : HandlerFunction<ServerResponse> {
     class ResponsePayload(
