@@ -1,4 +1,4 @@
-package dev.rizaldi.storage.handler
+package dev.rizaldi.storage.binaries.handler
 
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query

@@ -1,4 +1,4 @@
-package dev.rizaldi.storage.handler
+package dev.rizaldi.storage.binaries.handler
 
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsTemplate
