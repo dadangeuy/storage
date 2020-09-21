@@ -40,7 +40,8 @@ class PartialDownloadHandler(
 
             val stream = resource.downloadStream
                 .skip(chunkStartIdx)
-                .take(maxChunk)
+                .limitRequest(maxChunk)
+                .limitRate(1)
             val body = BodyInserters.fromDataBuffers(stream)
 
             ServerResponse

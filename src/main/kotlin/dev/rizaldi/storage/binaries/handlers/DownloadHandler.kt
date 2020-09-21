@@ -38,6 +38,7 @@ class DownloadHandler(
                 .orElse(MediaType.APPLICATION_OCTET_STREAM)
 
             val stream = resource.downloadStream
+                .limitRate(1)
             val body = BodyInserters.fromDataBuffers(stream)
 
             ServerResponse
