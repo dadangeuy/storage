@@ -1,4 +1,4 @@
-package dev.rizaldi.storage.binaries.handler
+package dev.rizaldi.storage.binaries.handlers
 
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
@@ -30,8 +30,8 @@ class PartialDownloadHandler(
             val file = t.t1
             val resource = t.t2
 
-            val maxChunk = 32L
             val byteStartAt = range.getRangeStart(file.length)
+            val maxChunk = 32L
             val byteChunkStartAt = byteStartAt - (byteStartAt % file.chunkSize)
             val byteChunkEndAt = minOf(file.length - 1, byteChunkStartAt + maxChunk * file.chunkSize)
             val chunkStartIdx = byteChunkStartAt / file.chunkSize

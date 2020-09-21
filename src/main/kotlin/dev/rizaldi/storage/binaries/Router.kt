@@ -1,8 +1,8 @@
 package dev.rizaldi.storage.binaries
 
-import dev.rizaldi.storage.binaries.handler.DownloadHandler
-import dev.rizaldi.storage.binaries.handler.PartialDownloadHandler
-import dev.rizaldi.storage.binaries.handler.UploadHandler
+import dev.rizaldi.storage.binaries.handlers.DownloadHandler
+import dev.rizaldi.storage.binaries.handlers.PartialDownloadHandler
+import dev.rizaldi.storage.binaries.handlers.UploadHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.server.RequestPredicates.*

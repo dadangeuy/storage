@@ -1,6 +1,6 @@
 package dev.rizaldi.storage.files
 
-import dev.rizaldi.storage.files.handler.ListHandler
+import dev.rizaldi.storage.files.handlers.ListHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.server.RequestPredicates

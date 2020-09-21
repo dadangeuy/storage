@@ -1,4 +1,4 @@
-package dev.rizaldi.storage.files.handler
+package dev.rizaldi.storage.files.handlers
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
