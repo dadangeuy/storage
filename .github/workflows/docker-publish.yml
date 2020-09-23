@@ -14,7 +14,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: rizaldi.dev/storage
+  IMAGE_NAME: storage
 
 jobs:
   # Run tests.
